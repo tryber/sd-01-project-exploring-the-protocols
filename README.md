@@ -1,4 +1,4 @@
-# Boas vindas ao projeto Explorando os Protocolos
+# Boas vindas ao projeto Explorando os protocolos
 
 Você já usa o GitHub diariamente para desenvolver os exercícios, certo? Agora, para desenvolver os projetos, você deverá seguir as instruções a seguir. Fique atento a cada passo, e se tiver qualquer dúvida, nos envie por Slack! #vqv 🚀
 
@@ -12,17 +12,17 @@ Você irá refatorar parte de um servidor HTTP, porém, esse servidor não está
 
 O objetivo da refatoração é implementar algumas partes da camada de apresentação HTTP sem utilizar bibliotecas ou módulos para isso.
 
-Durante o projeto, iremos passar por todas as camadas da pilha de protocolos TCP/IP.
+Durante o projeto, iremos passar por todas as camadas da pilha de protocolos `TCP/IP`.
 
-O _servidor_ deverá responder uma página HTML através do HTTP, mostrando algumas informações sobre o _client_, como dados sobre a localização, dispositivo e empresa provedora de internet.
+O _servidor_ deverá responder uma página HTML através do HTTP, mostrando algumas informações sobre o _client_, como dados sobre a localização, o dispositivo e a empresa provedora de internet.
 
 ## Desenvolvimento
 
-O servidor TCP responde com uma página HTML, porém, deverá ser adicionado a ele as informações de control do protocolo HTTP que representam o início e o final da response.
+O servidor TCP responde com uma página HTML, porém, deverá ser adicionado a ele as informações de _control_ do protocolo HTTP que representam o início e o final da _response_.
 
-Você terá que utilizar o módulo `net`, para descobrir como é uma requisição e uma resposta HTTP de maneira "crua", ou seja, sem estar encapsulada pelo protocolo.
+Você terá que utilizar o módulo `net` para descobrir como é uma requisição e uma resposta HTTP de maneira "crua", ou seja, sem estar encapsulada pelo protocolo.
 
-O código também realiza uma consulta a API pública `iplocation.com`, onde através de uma chamada HTTPS, passando um endereço de IP externo, é possível extrair algumas informações sobre o _client_.
+O código também realiza uma consulta à API pública [iplocation](https://iplocation.com/) onde, através de uma chamada HTTPS, passando um endereço de IP externo, é possível extrair algumas informações sobre o _client_.
 
 Utilizaremos o _ngrok_ para criar um túnel para o nosso projeto, tornando possível acessá-lo através da internet e não somente local. Dessa forma conseguiremos acessá-lo de outros dispositivos e conseguiremos ter acesso ao endereço de IP externo do _client_ que fizer a requisição através da _request_ e, então, utilizaremos esse IP para extrair as informações pela API _iplocation_.
 
@@ -30,77 +30,87 @@ Utilizaremos o _ngrok_ para criar um túnel para o nosso projeto, tornando poss�
 
 ### 1 - Criar um servidor TCP utilizando o módulo net que exiba no console todo o conteúdo recebido
 
-Crie um script (`serverExploiter.js`) para criar um servidor TCP que mostre no console todo o conteúdo recebido. Depois, podemos acessá-lo pelo navegador e descobrir como é o `data` de uma requisição HTTP.
+Faça um _script_ (`exploiters/serverExploiter.js`) para criar um servidor TCP que mostre no console todo o conteúdo recebido. Depois, podemos acessá-lo pelo navegador e descobrir como é o `data` de uma requisição HTTP.
 
 > **Dica**: Não se preocupe em responder o navegador da maneira correta, só queremos descobrir a estrutura da _request_.
 
 ### 2 - Criar um script utilizando o módulo net capaz de realizar um chamada HTTP a um server
 
-Crie um novo script (`clientExploiter.js`), que utilize a _request_ extraída no [requisito anterior (1)](#-1---Criar-um-servidor-TCP-utilizando-o-módulo-net-que-exiba-no-console-todo-o-conteúdo-recebido), realizando as devidas modificações para fazer uma request HTTP à página do Google (`google.com`) e, então, exiba no console a resposta "crua" dada pelo servidor da Google.
+Crie um novo script (`exploiters/clientExploiter.js`), que utilize a _request_ extraída no [requisito anterior (1)](#-1---Criar-um-servidor-TCP-utilizando-o-módulo-net-que-exiba-no-console-todo-o-conteúdo-recebido), realizando as devidas modificações para fazer uma request HTTP à página do Google (`google.com`) e, então, exiba no console a resposta "crua" dada pelo servidor da Google.
 
 Agora descobrimos como é uma response HTTP sem encapsulá-la.
 
-> **Dica**: Na request existem características que indicam ao HTTP onde a request finaliza, então, tenha certeza que pegou todo o conteúdo inclusive quebras de linhas. Para representar as quebras de linhas você pode utilizar `\r\n` ou "template strings"
+> **Dica**: Na request existem características que indicam ao HTTP onde a request finaliza, então, tenha certeza que pegou todo o conteúdo, inclusive quebras de linhas. Para representar as quebras de linhas você pode utilizar `\r\n` ou "template strings"
 
 ### 3 - Criar um server TCP utilizando o módulo net capaz de responder com uma mensagem HTTP
 
-Utilizando a _response_ capturada no [requisito anterior (2)](#-2---Criar-um-script-utilizando-o-módulo-net-capaz-de-realizar-um-chamada-HTTP-a-um-server), faça um _server_ (`httpServer.js`) que responda uma página HTML, faça as devidas modificações na response para que retorne uma mensagem com o **status code HTTP 200**.
+Utilizando a _response_ capturada no [requisito anterior (2)](#-2---Criar-um-script-utilizando-o-módulo-net-capaz-de-realizar-um-chamada-HTTP-a-um-server), faça um _server_ (`exploiters/httpServer.js`) que responda uma página HTML, faça as devidas modificações na response para que retorne uma mensagem com o **status code HTTP 200**.
 
 ### 4 - Configurar uma chamada HTTPS à API `iplocation`
 
 No projeto temos o arquivo `location.js`, responsável por fazer a _request_ HTTPS à API `iplocation`, altere o objeto `options` desse arquivo para a seguinte configuração:
 
 - hostname: "iplocation.com";
+
 - port: Preencha com a porta padrão HTTPS;
-- path: '/'
-- method: POST,
-- headers: Adicione o header "Content-Type", com o valor "application/x-www-form-urlencoded"
+
+- path: '/';
+
+- method: POST;
+
+- headers: Adicione o header "Content-Type", com o valor "application/x-www-form-urlencoded".
 
 ### 5 - Configurar a request HTTPS para enviar o endereço IP
 
-Ainda no arquivo `location` **antes de finalizar a request**, adicione uma linha que envie o ip do cliente utilizando o método `write` da requisição, o server espera receber a seguinte mensagem texto "ip=CLIENT_IP".
+Ainda no arquivo `location`, **antes de finalizar a request**, adicione uma linha que envie o ip do cliente, utilizando o método `write` da requisição. A _API_ espera receber a seguinte mensagem texto: "ip=CLIENT_IP".
 
-> **Dica**: A API espera receber uma o body sem nenhuma formatação, envie a string conforme exemplo, substituindo o CLIENT_IP pela variável recebida no método.
+> **Dica**: A API espera receber um body sem nenhuma formatação. Envie a string conforme exemplo, substituindo o CLIENT_IP pela variável recebida no método.
 
 ### 6 - Adicionar a estrutura de início de requisição HTTP
 
-No arquivo `index.js` do projeto, altere a variável `startOfResponse` para receber a estrutura que descobrimos anteriormente, da mesma forma que fizemos no [requisito 3](#-3---Criar-um-server-TCP-utilizando-o-módulo-net-capaz-de-responder-com-uma-mensagem-HTTP). Faça as devidas alterações para que a resposta indique:
+No arquivo `index.js` do projeto, altere a variável `startOfResponse` para receber a estrutura que descobrimos anteriormente, da mesma forma que fizemos no [requisito 3](#-3---Criar-um-server-TCP-utilizando-o-módulo-net-capaz-de-responder-com-uma-mensagem-HTTP). Faça as devidas alterações para que a resposta tenha os seguintes valores:
 
 - Versão 1.1 do protocolo HTTP;
-- Status Code HTTP 200;
-- Header "Content-Type" como "text/html; charset=UTF-8"
+
+- Status code `HTTP 200`;
+
+- Header "Content-Type" como "text/html; charset=UTF-8".
 
 > **Dica**: Mais uma vez, não esqueça das quebras de linhas 😉. Não é necessário nenhum outro header além do "Content-Type".
 
-### 7 - Adicionar a estrutua de fim requisição HTTP
+### 7 - Adicionar a estrutura de fim da requisição HTTP
 
 Ainda no arquivo `index.js`, altere a variável `endOfResponse` para receber a estrutura utilizada pelo HTTP para informar o fim de uma request.
 
 ### 8 - Identificar o endereço de IP do client
 
-Utilizando a função `getHeaderValue`, extraia do data o header `X-Forwarded-For`, esse header será adicionado pelo nosso proxy contendo o endereço de IP do _client_. Passe esse IP para a função `getLocationInfos`, para que possamos extrair dados através dele.
+Utilizando a função `getHeaderValue`, extraia do data o header `X-Forwarded-For`. Esse header será adicionado pelo nosso proxy, contendo o endereço de IP do _client_. Passe esse IP para a função `getLocationInfos`, para que possamos extrair dados através dele.
 
 > **Dica**: Converta o data para String antes de extrair os headers.
 
 ### 9 - Responder o IP do client
 
-Adicione mais um comando `write` na estrutura do response para responder com o endereço de IP do _client_ extraído no [requisito 8](#-8---Identificar-o-endereço-de-IP-do-client).
+Adicione mais um comando `write`, na estrutura do response, para responder com o endereço de IP do _client_ extraído no [requisito 8](#-8---Identificar-o-endereço-de-IP-do-client).
 
 ### 10 - Responder informações extraídas através do IP do client
 
-Adiocione mais comandos `write` na estrutura do response, a resposta deverá conter as seguintes informações da resposta da API do `iplocation`:
+Adicione mais comandos `write`, na estrutura do response. A resposta da API `iplocation` deverá conter as seguintes informações:
 
-- Cidade
-- Código Postal (da cidade)
-- Região e nome da região
-- Nome do país
-- Companhia (nome da provedora de internet)
+- Cidade;
+
+- Código Postal (da cidade);
+
+- Região e nome da região;
+
+- Nome do país;
+
+- Companhia (nome da provedora de internet);
 
 ### 11 - Criar um túnel através do Ngrok.
 
-Crie um túnel para seu `localhost` utilizando o Ngrok e então acesse-o de diferentes dispositivos e rede para testar o funcionamento do nosso projeto.
+Crie um túnel para seu `localhost`, utilizando o `Ngrok`. Em seguida, acesse-o de diferentes dispositivos de rede para testar o funcionamento do nosso projeto.
 
-Adicione no arquivo `instructions.md`, o passo-a-passo com os comandos `ngrok` e NodeJS para executar e realizar a publicação do projeto.
+Adicione no arquivo `instructions.md` o passo-a-passo com os comandos `ngrok` e `node.js` para executar e realizar a publicação do projeto.
 
 ## Bônus
 
@@ -110,16 +120,18 @@ Utilizando também a função para extrair informações dos _headers_ da _reque
 
 > **Dica**: Converta o data para String antes de extrair os headers.
 
-### 13 - Criar um endpoint /server
+### 13 - Criar um endpoint `/server`
 
-Identifique através da mensagem da requisição se o endpoint enviado corresponde a `/server` e o método é GET.
+Identifique, através da mensagem da requisição, se o endpoint enviado corresponde a `/server` e o método é `GET`.
 
 ### 14 - Responder a request com os resources do Server
 
-Ao identificar a correspondência do [requisito anterior (13)](#-13---Criar-um-endpoint-/resources), utilizando os módulos nativos do NodeJS para chamadas ao Sistema Operacional, responda ao invés dos dados _client_ dados do server:
+Ao identificar a correspondência do [requisito anterior (13)](#-13---Criar-um-endpoint-/server), utilizando os módulos nativos do `node.js` para chamadas ao sistema operacional, responda, ao invés dos dados do _client_, dados do server:
 
 - O Sistema Operacional, sua versão e arquitetura;
-- Informações sobre a CPU - quantidade de cores e o modelo e velocidade de cada um;
+
+- Informações sobre a CPU - quantidade de cores, o modelo e velocidade de cada um;
+
 - Quantidade de memória total em gigabytes (GB).
 
 ---
