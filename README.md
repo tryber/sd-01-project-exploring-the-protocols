@@ -12,7 +12,7 @@ Você irá refatorar parte de um servidor HTTP, porém, esse servidor não está
 
 O objetivo da refatoração é implementar algumas partes da camada de apresentação HTTP sem utilizar bibliotecas ou módulos para isso.
 
-Durante o projeto, iremos passar por todas as camadas da pilha de protocolos `TCP/IP`.
+Durante o projeto, iremos passar por todas as camadas da pilha de protocolos `TCP/IP`. Neste projeto, você **expandirá** o seu conhecimento de protocolos, explorando e aprendendo como lidar com as operações de rede!
 
 O _servidor_ deverá responder uma página HTML através do HTTP, mostrando algumas informações sobre o _client_, como dados sobre a localização, o dispositivo e a empresa provedora de internet.
 
@@ -26,17 +26,19 @@ O código também realiza uma consulta à API pública [iplocation](https://iplo
 
 Utilizaremos o _ngrok_ para criar um túnel para o nosso projeto, tornando possível acessá-lo através da internet e não somente local. Dessa forma conseguiremos acessá-lo de outros dispositivos e conseguiremos ter acesso ao endereço de IP externo do _client_ que fizer a requisição através da _request_ e, então, utilizaremos esse IP para extrair as informações pela API _iplocation_.
 
+**E atenção!** Esse trabalho usa bastante o que vocês aprenderam nos exercícios da aula de [arquitetura de redes](https://course.betrybe.com/computer-science/network-architecture#exerc%C3%ADcios). Usem-nos de referência, assim como a [documentação do módulo NET do Node.js](https://nodejs.org/api/net.html#net_net_createserver_options_connectionlistener). E contem com nossa ajuda também no Slack! 👊 
+
 ## Requisitos do projeto
 
 ### 1 - Criar um servidor TCP utilizando o módulo net que exiba no console todo o conteúdo recebido
 
 Faça um _script_ (`exploiters/serverExploiter.js`) para criar um servidor TCP que mostre no console todo o conteúdo recebido. Depois, podemos acessá-lo pelo navegador e descobrir como é o `data` de uma requisição HTTP.
 
-> **Dica**: Não se preocupe em responder o navegador da maneira correta, só queremos descobrir a estrutura da _request_.
+> **Dica**: Não se preocupe em responder o navegador da maneira correta, só queremos descobrir a estrutura da _request_. Além disso, volte ao [conteúdo de sockets](https://course.betrybe.com/back-end/nodejs/sockets#show-me-the-code) para se lembrar de como o `net` funciona!
 
 ### 2 - Criar um script utilizando o módulo net capaz de realizar um chamada HTTP a um server
 
-Crie um novo script (`exploiters/clientExploiter.js`), que utilize a _request_ extraída no [requisito anterior (1)](#-1---Criar-um-servidor-TCP-utilizando-o-módulo-net-que-exiba-no-console-todo-o-conteúdo-recebido), realizando as devidas modificações para fazer uma request HTTP à página do Google (`google.com`) e, então, exiba no console a resposta "crua" dada pelo servidor da Google.
+Crie um novo script (`exploiters/clientExploiter.js`), que utilize a _request_ extraída no [requisito anterior (1)](#-1---Criar-um-servidor-TCP-utilizando-o-módulo-net-que-exiba-no-console-todo-o-conteúdo-recebido), realizando as devidas modificações para fazer uma request HTTP à página do Google (`google.com`) e, então, exiba no console a resposta "crua" dada pelo servidor da Google. **Ou seja: crie uma requisição HTTP "na mão" usando de base a requisição capturada no requisito anterior! Você pode utilizar, pra fazer essa requisição "na mão", o `client.write` do NET**
 
 Agora descobrimos como é uma response HTTP sem encapsulá-la.
 
@@ -46,9 +48,11 @@ Agora descobrimos como é uma response HTTP sem encapsulá-la.
 
 Utilizando a _response_ capturada no [requisito anterior (2)](#-2---Criar-um-script-utilizando-o-módulo-net-capaz-de-realizar-um-chamada-HTTP-a-um-server), faça um _server_ (`exploiters/httpServer.js`) que responda uma página HTML, faça as devidas modificações na response para que retorne uma mensagem com o **status code HTTP 200**.
 
+> **Dica**: Se estiver com dificuldades para avançar, [esse artigo](https://www.mattzeunert.com/2018/10/25/manually-making-an-http-request-with-nodejs.html) faz algo bem parecido com o que pedimos aqui ;)
+
 ### 4 - Configurar uma chamada HTTPS à API `iplocation`
 
-No projeto temos o arquivo `location.js`, responsável por fazer a _request_ HTTPS à API `iplocation`, altere o objeto `options` desse arquivo para a seguinte configuração:
+No projeto temos o arquivo `location.js`, responsável por fazer a _request_ HTTPS à API `iplocation`. Altere o objeto `options` desse arquivo para a seguinte configuração:
 
 - hostname: "iplocation.com";
 
