@@ -28,13 +28,15 @@ Utilizaremos o _ngrok_ para criar um túnel para o nosso projeto, tornando poss�
 
 **E atenção!** Esse trabalho usa bastante o que vocês aprenderam nos exercícios da aula de [arquitetura de redes](https://course.betrybe.com/computer-science/network-architecture#exerc%C3%ADcios). Usem-nos de referência, assim como a [documentação do módulo NET do Node.js](https://nodejs.org/api/net.html#net_net_createserver_options_connectionlistener). E contem com nossa ajuda também no Slack! 👊 
 
+> **Dica**: Se estiver com dificuldades para avançar no projeto, dê uma olhada [nesse artigo](https://www.mattzeunert.com/2018/10/25/manually-making-an-http-request-with-nodejs.html), pois ele faz algo bem parecido com o que estamos pedindo! 😉
+
 ## Requisitos do projeto
 
 ### 1 - Criar um servidor TCP utilizando o módulo net que exiba no console todo o conteúdo recebido
 
 Faça um _script_ (`exploiters/serverExploiter.js`) para criar um servidor TCP que mostre no console todo o conteúdo recebido. Depois, podemos acessá-lo pelo navegador e descobrir como é o `data` de uma requisição HTTP.
 
-> **Dica**: Não se preocupe em responder o navegador da maneira correta, só queremos descobrir a estrutura da _request_. Além disso, volte ao [conteúdo de sockets](https://course.betrybe.com/back-end/nodejs/sockets#show-me-the-code) para se lembrar de como o `net` funciona!
+> **Dica**: Não se preocupe em responder o navegador da maneira correta, só queremos descobrir a estrutura da _request_. Além disso, volte ao [conteúdo de Arquitetura de redes](https://course.betrybe.com/computer-science/network-architecture) para retomar alguns conceitos importantes! Além do conteúdo escrito você também pode consultar o [gabarito dos exercícios](https://course.betrybe.com/computer-science/network-architecture/solutions).
 
 ### 2 - Criar um script utilizando o módulo net capaz de realizar um chamada HTTP a um server
 
@@ -47,8 +49,6 @@ Agora descobrimos como é uma response HTTP sem encapsulá-la.
 ### 3 - Criar um server TCP utilizando o módulo net capaz de responder com uma mensagem HTTP
 
 Utilizando a _response_ capturada no [requisito anterior (2)](#-2---Criar-um-script-utilizando-o-módulo-net-capaz-de-realizar-um-chamada-HTTP-a-um-server), faça um _server_ (`exploiters/httpServer.js`) que responda uma página HTML, faça as devidas modificações na response para que retorne uma mensagem com o **status code HTTP 200**.
-
-> **Dica**: Se estiver com dificuldades para avançar, [esse artigo](https://www.mattzeunert.com/2018/10/25/manually-making-an-http-request-with-nodejs.html) faz algo bem parecido com o que pedimos aqui ;)
 
 ### 4 - Configurar uma chamada HTTPS à API `iplocation`
 
@@ -114,7 +114,9 @@ Adicione mais comandos `write`, na estrutura do response. A resposta da API `ipl
 
 Crie um túnel para seu `localhost`, utilizando o `Ngrok`. Em seguida, acesse-o de diferentes dispositivos de rede para testar o funcionamento do nosso projeto.
 
-Adicione no arquivo `instructions.md` o passo-a-passo com os comandos `ngrok` e `node.js` para executar e realizar a publicação do projeto.
+Adicione no arquivo `instructions.md` o passo-a-passo com os comandos `ngrok` e `Node.js` para executar e realizar a publicação do projeto.
+
+> **Dica**: Consulte o `getting stated` na [documentação do ngrok](https://ngrok.com/docs).
 
 ## Bônus
 
