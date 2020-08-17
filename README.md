@@ -40,7 +40,7 @@ Faça um _script_ (`exploiters/serverExploiter.js`) para criar um servidor TCP q
 
 ### 2 - Criar um script utilizando o módulo net capaz de realizar um chamada HTTP a um server
 
-Crie um novo script (`exploiters/clientExploiter.js`), que utilize a _request_ extraída no [requisito anterior (1)](#-1---Criar-um-servidor-TCP-utilizando-o-módulo-net-que-exiba-no-console-todo-o-conteúdo-recebido), realizando as devidas modificações para fazer uma request HTTP à página do Google (`google.com`) e, então, exiba no console a resposta "crua" dada pelo servidor da Google. **Ou seja: crie uma requisição HTTP "na mão" usando de base a requisição capturada no requisito anterior! Você pode utilizar, pra fazer essa requisição "na mão", o `client.write` do NET**
+Crie um novo script (`exploiters/clientExploiter.js`), que utilize a _request_ extraída no [requisito anterior (1)](#-1---Criar-um-servidor-TCP-utilizando-o-módulo-net-que-exiba-no-console-todo-o-conteúdo-recebido), realizando as devidas modificações para fazer uma request HTTP à página do Google (`google.com`) e, então, exiba no console a resposta "crua" dada pelo servidor da Google. **Ou seja, crie uma requisição HTTP “na mão” usando como base a resposta de saída da requisição do requisito 1. Você irá copiar o response do requisito anterior para montar sua requisição neste requisito. Você pode utilizar, pra fazer essa requisição “na mão”, o client.write do NET.**
 
 Agora descobrimos como é uma response HTTP sem encapsulá-la.
 
