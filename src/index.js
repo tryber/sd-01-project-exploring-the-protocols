@@ -18,6 +18,8 @@ const server = net.createServer((socket) => {
   socket.on('data', (data) => {
     const clientIP = null;
 
+    //getHeaderValue(data);
+
     getLocationInfos(clientIP, (locationData) => {
       socket.write(startOfResponse);
       socket.write('<html><head><meta http-equiv="content-type" content="text/html;charset=utf-8">');
