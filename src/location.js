@@ -8,7 +8,8 @@ const options = {
   headers: 'Content-Type: application/x-www-form-urlencoded;'
 };
 
-const getLocationInfos = (clientIP, cb) => {
+module.exports = (clientIP, cb) => {
+  console.log('teste')
   const req = https.request(options, (res) => {
     res.on('data', (locationDataRaw) => {
       const locationData = JSON.parse(locationDataRaw.toString());
@@ -28,7 +29,3 @@ const getLocationInfos = (clientIP, cb) => {
 
   req.end();
 };
-
-module.exports = {
-  getLocationInfos,
-}
