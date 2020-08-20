@@ -6,3 +6,5 @@ Ao rodar o comando recebir este erro bash: /usr/local/bin/ngrok: impossível exe
 que era referente a não ser compatível com meu processador
 
 tentei reinstalar, com minha versão de processador e não consegui do mesmo jeito
+
+Mas vi um comando que resolveria meu problema, rodar ngrok http https://localhost:8080 para criar o proxi
