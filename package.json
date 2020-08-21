@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "ngrok": "ngrok http https://localhost:8080",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/betrybe/sd-0x-block38-exploring-the-protocols/issues"
   },
-  "homepage": "https://github.com/betrybe/sd-0x-block38-exploring-the-protocols#readme"
+  "homepage": "https://github.com/betrybe/sd-0x-block38-exploring-the-protocols#readme",
+  "dependencies": {
+    "ngrok": "^3.2.7"
+  }
 }
