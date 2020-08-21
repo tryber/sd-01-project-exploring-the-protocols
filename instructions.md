@@ -1,10 +1,12 @@
-Cheguei a instalar o ngrok conforme pedido, mas tive porblemas na usabilidade
+npm i ngrok
 
+cadastrei na plataforma
 
-Ao rodar o comando recebir este erro bash: /usr/local/bin/ngrok: impossível executar o arquivo binário: Erro no formato exec
+baixei o arquivo ngrok e coloquei dentro da raiz do arquivo
 
-que era referente a não ser compatível com meu processador
+autentificação com ngrok authtoken 'SEU_TOKEN'
 
-tentei reinstalar, com minha versão de processador e não consegui do mesmo jeito
+coloquei dentro do script o comando para fazer u tunnles
+ngrok http https://localhost:8080 para criar o proxy
 
-Mas vi um comando que resolveria meu problema, rodar ngrok http https://localhost:8080 para criar o proxi
+executei npm run ngrok

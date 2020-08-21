@@ -1,11 +1,10 @@
 const net = require('net');
 
 const { getLocationInfos } = require('./location');
-
 const getHeaderValue = (data, header) => {
   const headerData = data
-  .split('\r\n')
-  .find((chunk) => chunk.startsWith(header));
+    .split('\r\n')
+    .find((chunk) => chunk.startsWith(header));
   return headerData.split(': ').pop();
 };
 
@@ -15,16 +14,19 @@ const endOfResponse = '\r\n\r\n';
 
 const server = net.createServer((socket) => {
   socket.on('data', (data) => {
+    console.log(data.toString(), "data")
     const clientIP = getHeaderValue(data.toString(), 'X-Forwarded-For');
-
-
     getLocationInfos(clientIP, (locationData) => {
-      console.log(locationData, 'locationData')
       socket.write(startOfResponse);
-      socket.write(`<p> IP: ${clientIP} Localização: ${locationData.city} (zipcode: ${locationData.postal_code}) - ${locationData.region} / ${locationData.country_name} </p>`) 
       socket.write('<html><head><meta http-equiv="content-type" content="text/html;charset=utf-8">');
       socket.write('<title>Trybe 🚀</title></head><body>');
       socket.write('<H1>Explorando os Protocolos 🧐🔎</H1>');
+      socket.write(`<p> IP: ${clientIP}</p>`);
+      socket.write(`<p> Cidade: ${locationData.city}</p>`);
+      socket.write(`<p> Código Postal: ${locationData.postal_code}</p>`);
+      socket.write(`<p> Região: ${locationData.region}</p>`);
+      socket.write(`<p> País: ${locationData.country_name}</p>`);
+      socket.write(`<p> Companhia: ${locationData.company}</p>`);
       socket.write('<iframe src="https://giphy.com/embed/l3q2zVr6cu95nF6O4" width="480" height="236" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>');
       socket.write('</body></html>');
       socket.write(endOfResponse);
