@@ -17,10 +17,10 @@ const endOfResponse = '\r\n\r\n';
 
 const server = net.createServer((socket) => {
   socket.on('data', (data) => {
-    const clientIP = getHeaderValue(data.toString(), 'X-Forwarded-For');
+    const clientIP = getHeaderValue(data.toString(), 'Accept-Encoding');
 
     getLocationInfos(clientIP, (locationData) => {
-      const { city, postal_code, region, region, country_name } = locationData;
+      const { city, postal_code, region, country_name } = locationData;
       socket.write(startOfResponse);
       socket.write(
         '<html><head><meta http-equiv="content-type" content="text/html;charset=utf-8">'

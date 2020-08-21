@@ -2,21 +2,18 @@ const https = require('https');
 
 const options = {
   hostname: 'iplocation.com',
-  port: 8085,
+  port: 443,
   path: '/',
   method: 'POST',
-  headers: 'Content-Type: application/x-www-form-urlencoded;'
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
 };
 
 module.exports = (clientIP, cb) => {
-  console.log('teste')
   const req = https.request(options, (res) => {
     res.on('data', (locationDataRaw) => {
-      const locationData = JSON.parse(locationDataRaw.toString());
-
-      console.log('Location data:');
-      console.log(locationData);
-
+      const locationData = locationDataRaw.toString();
       cb(locationData);
     });
   });

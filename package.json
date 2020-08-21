@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ngrok": "ngrok http https://localhost:8080/",
+    "start": "ngrok authtoken 1gQSeCRMc1ow2dm5T8isKXruyTs_4MbfGQYHcj3PdBPxUigY"
   },
   "repository": {
     "type": "git",
