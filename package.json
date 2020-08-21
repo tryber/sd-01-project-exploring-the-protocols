@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/betrybe/sd-0x-block38-exploring-the-protocols/issues"
   },
-  "homepage": "https://github.com/betrybe/sd-0x-block38-exploring-the-protocols#readme"
+  "homepage": "https://github.com/betrybe/sd-0x-block38-exploring-the-protocols#readme",
+  "dependencies": {
+    "ngrok": "^3.2.7"
+  }
 }
